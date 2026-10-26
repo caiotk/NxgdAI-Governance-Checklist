@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Governance Checklist</title>
+<meta name="description" content="Twelve controls to build, run and evidence responsible AI at enterprise scale — mapped to ISO/IEC 42001, NIST AI RMF and the EU AI Act.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F8FA; --surface:#FFFFFF; --ink:#0F1B2D; --muted:#5B6576; --line:#E3E7EE;
+  --brand:#1F3864; --accent:#2E75B6; --accent-soft:#E8F1FA;
+  --s0:#EEF0F3; --s0t:#5B6576; --s1:#FFF3CC; --s1t:#7A5A00; --s2:#DCEBFA; --s2t:#1D4F85;
+  --s3:#DDF4E4; --s3t:#1C6B3A; --s4:#ECECEC; --s4t:#6B6B6B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1420; --surface:#141D2B; --ink:#E8ECF2; --muted:#9AA6B8; --line:#243045;
+    --brand:#9CC3F0; --accent:#6AA9E8; --accent-soft:#1A2A40;
+    --s0:#1E2737; --s0t:#9AA6B8; --s1:#3A3010; --s1t:#F2D27A; --s2:#15304D; --s2t:#9CC8F2;
+    --s3:#123522; --s3t:#8FDCAB; --s4:#262626; --s4t:#A0A0A0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1420; --surface:#141D2B; --ink:#E8ECF2; --muted:#9AA6B8; --line:#243045;
+  --brand:#9CC3F0; --accent:#6AA9E8; --accent-soft:#1A2A40;
+  --s0:#1E2737; --s0t:#9AA6B8; --s1:#3A3010; --s1t:#F2D27A; --s2:#15304D; --s2t:#9CC8F2;
+  --s3:#123522; --s3t:#8FDCAB; --s4:#262626; --s4t:#A0A0A0;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line);background:var(--surface)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px}
+.brand{font-weight:700;letter-spacing:-.01em;color:var(--brand);text-decoration:none}
+.brand span{color:var(--accent)}
+.toplinks{display:flex;gap:6px;flex-wrap:wrap}
+.btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:500 13px Inter,Arial,sans-serif;padding:7px 12px;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+:root[data-theme="dark"] .btn.primary{color:#0D1420}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.primary{color:#0D1420}}
+.hero{padding:44px 0 24px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(32px,6vw,52px);line-height:1.05;margin:0 0 12px;letter-spacing:-.02em}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{color:var(--muted);font-size:17px;max-width:560px;margin:0}
+.ring{width:150px;height:150px;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .num b{font-size:34px;letter-spacing:-.02em}
+.ring .num small{color:var(--muted);font-size:12px}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 18px}
+.chip{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px}
+.controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:12px 0 18px;border-top:1px solid var(--line)}
+.controls label{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+select{font:500 13px Inter,Arial,sans-serif;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.list{display:grid;gap:10px;padding-bottom:40px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:start}
+.card .id{width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.card h3{margin:0 0 2px;font-size:16px;letter-spacing:-.01em}
+.card .area{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.card p{margin:6px 0 0;color:var(--muted)}
+.card select.status{min-width:140px}
+.card[data-s="Evidenced"]{border-color:color-mix(in srgb,var(--s3t) 40%,var(--line))}
+details{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--accent);list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+ "}
+details[open] summary::before{content:"− "}
+dl{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;margin:10px 0 0;font-size:14px}
+dt{color:var(--muted);font-weight:600}
+dd{margin:0}
+.map{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.map div{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px}
+.map b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:2px}
+textarea{width:100%;margin-top:10px;min-height:56px;font:14px Inter,Arial,sans-serif;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);resize:vertical}
+.st-0{background:var(--s0);color:var(--s0t)} .st-1{background:var(--s1);color:var(--s1t)} .st-2{background:var(--s2);color:var(--s2t)}
+.st-3{background:var(--s3);color:var(--s3t)} .st-4{background:var(--s4);color:var(--s4t)}
+footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--muted);font-size:13px}
+footer p{margin:4px 0}
+footer a{color:var(--accent)}
+.empty{color:var(--muted);text-align:center;padding:30px}
+@media (max-width:720px){
+  .hero{grid-template-columns:1fr;padding-top:28px}
+  .ring{width:120px;height:120px}
+  .card{grid-template-columns:1fr;gap:8px}
+  .card .id{width:34px;height:34px}
+  .card select.status{width:100%}
+  dl{grid-template-columns:1fr}
+  .map{grid-template-columns:1fr}
+  .toplinks .hide-sm{display:none}
+}
+@media print{
+  header.top,.controls,.toplinks,textarea:placeholder-shown{display:none}
+  body{background:#fff;color:#000}
+  .card{break-inside:avoid;border-color:#ccc}
+  details{display:block} details>*{display:block}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="https://github.com/caiotk/NxgdAI-Governance-Checklist">NexGuide<span>.AI</span></a>
+  <nav class="toplinks">
+    <a class="btn hide-sm" href="https://github.com/caiotk/NxgdAI-Governance-Checklist/raw/main/sheets/ai-governance-checklist.xlsx">Excel</a>
+    <a class="btn hide-sm" href="https://raw.githubusercontent.com/caiotk/NxgdAI-Governance-Checklist/main/sheets/checklist.csv">CSV / Sheets</a>
+    <a class="btn hide-sm" href="https://github.com/caiotk/NxgdAI-Governance-Checklist/blob/main/CHECKLIST.md">Markdown</a>
+    <button class="btn" id="theme" aria-label="Toggle light or dark theme">Theme</button>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <h1>AI Governance <em>Checklist</em></h1>
+      <p class="lede">Twelve controls to build, run and evidence responsible AI at enterprise scale — each with the evidence an auditor will ask for and a quick test you can run this week.</p>
+    </div>
+    <div class="ring" aria-live="polite">
+      <svg viewBox="0 0 120 120" width="100%" height="100%">
+        <circle cx="60" cy="60" r="52" fill="none" stroke="var(--line)" stroke-width="10"/>
+        <circle id="arc" cx="60" cy="60" r="52" fill="none" stroke="var(--accent)" stroke-width="10" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7" style="transition:stroke-dashoffset .4s"/>
+      </svg>
+      <div class="num"><b id="pct">0%</b><small>audit-ready</small></div>
+    </div>
+  </section>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="controls">
+    <label for="fArea">Area</label><select id="fArea"></select>
+    <label for="fStatus">Status</label><select id="fStatus"></select>
+    <span style="flex:1"></span>
+    <button class="btn" id="expand">Expand all</button>
+    <button class="btn" id="export">Export CSV</button>
+    <button class="btn" onclick="window.print()">Print</button>
+    <button class="btn" id="reset">Reset</button>
+  </div>
+
+  <section class="list" id="list"></section>
+</main>
+
+<footer><div class="wrap">
+  <p><b>Strong governance builds trust. Responsible AI drives sustainable innovation.</b></p>
+  <p id="note"></p>
+  <p>Your progress is saved only in this browser. Version 1.0.0 · Updated 2026-10-26 · <a href="https://github.com/caiotk/NxgdAI-Governance-Checklist">Source on GitHub</a> · CC BY 4.0, NexGuide.AI</p>
+</div></footer>
+
+<script>
+const DATA = {"title": "AI Governance Checklist", "subtitle": "Twelve controls to build, run and evidence responsible AI at enterprise scale.", "publisher": "NexGuide.AI", "version": "1.0.0", "updated": "2026-10-26", "mapping_note": "Framework references are indicative mappings to help you find the relevant requirement. Verify against the current official text of each standard or law before relying on them for compliance.", "statuses": ["Not started", "In progress", "Implemented", "Evidenced", "Not applicable"], "items": [{"id": "01", "area": "Foundations", "control": "AI inventory completed", "description": "Identify and record every AI system, model, tool, agent and use case in the organisation, including embedded vendor AI and shadow use.", "evidence": "AI register with owner, purpose, data used, vendor, risk tier and lifecycle status for each entry; date of last review.", "test": "Pick three business units at random. Does every AI tool they use appear in the register?", "owner": "Chief AI Officer / AI governance lead", "iso42001": "Cl. 4.3, 7.5; Annex A.4", "nist": "GOVERN 1.6; MAP 1.1", "euaiact": "Art. 6, 49 (high-risk classification and registration)"}, {"id": "02", "area": "Foundations", "control": "Risk classification framework defined", "description": "Apply one consistent method to rate AI risk by impact and likelihood, and tie each tier to the controls and approvals it requires.", "evidence": "Approved risk methodology; risk tier recorded against every register entry; documented tier-to-control matrix.", "test": "Can two assessors rate the same use case independently and land on the same tier?", "owner": "Chief Risk Officer", "iso42001": "Cl. 6.1, 8.2; Annex A.5", "nist": "MAP 1–5; GOVERN 1.3", "euaiact": "Art. 6, 9 (classification, risk management)"}, {"id": "03", "area": "Accountability", "control": "Governance committee established", "description": "Stand up a cross-functional AI governance body with clear terms of reference, decision rights and a named accountable owner for every AI system.", "evidence": "Terms of reference; membership spanning risk, legal, privacy, security, data and business; minutes showing decisions made.", "test": "For any production AI system, can you name the one person accountable for it in under a minute?", "owner": "Executive sponsor / Board", "iso42001": "Cl. 5.1, 5.3; Annex A.3", "nist": "GOVERN 2.1–2.3", "euaiact": "Art. 17, 26 (quality management, deployer obligations)"}, {"id": "04", "area": "Accountability", "control": "AI policies documented", "description": "Approve and publish policies covering ethics, acceptable use, data, model governance and accountability, and train people on them.", "evidence": "Board- or executive-approved AI policy; review date; staff attestation or training completion records.", "test": "Ask five staff where the AI policy lives and what it forbids. How many can answer?", "owner": "Chief AI Officer / General Counsel", "iso42001": "Cl. 5.2; Annex A.2", "nist": "GOVERN 1.2, 1.4", "euaiact": "Art. 4 (AI literacy), Art. 17"}, {"id": "05", "area": "Transparency", "control": "Model documentation standardised", "description": "Use standard templates such as model cards and datasheets so every system can be understood, audited and handed over.", "evidence": "Completed model card and data sheet per system, version-controlled, covering intended use, limits, training data provenance and evaluation results.", "test": "Could an auditor who has never seen the system reconstruct what it does and why from the documentation alone?", "owner": "Model owner / ML engineering lead", "iso42001": "Cl. 7.5; Annex A.6, A.7", "nist": "MAP 2.1–2.3; MEASURE 2.1", "euaiact": "Art. 11, 12 (technical documentation, record-keeping)"}, {"id": "06", "area": "Trustworthiness", "control": "Bias and fairness testing implemented", "description": "Test models for bias across relevant groups, disaggregated rather than in aggregate, and act on what you find.", "evidence": "Fairness test plan with defined groups and thresholds; disaggregated results; remediation log for findings.", "test": "Are results reported per group, and is there a written threshold that would block release?", "owner": "Model owner / Data science lead", "iso42001": "Annex A.5, A.7", "nist": "MEASURE 2.11", "euaiact": "Art. 10 (data and data governance)"}, {"id": "07", "area": "Trustworthiness", "control": "Explainability requirements defined", "description": "Set the level of explanation each system must provide based on the risk and impact of its decisions, including to affected people.", "evidence": "Explainability standard by risk tier; sample explanations; human review and challenge route for affected individuals.", "test": "If a person asks why the system decided against them, what exactly do you send them, and who sends it?", "owner": "Business owner / Model owner", "iso42001": "Annex A.8", "nist": "MEASURE 2.9", "euaiact": "Art. 13, 14, 86 (transparency, human oversight, right to explanation)"}, {"id": "08", "area": "Protection", "control": "Security and privacy controls applied", "description": "Protect data, models and outputs with security and privacy safeguards, including AI-specific threats such as prompt injection and data leakage.", "evidence": "Privacy impact assessment; AI threat model; red-team or penetration test results; access controls on training data and prompts.", "test": "Has the system been attacked on purpose (prompt injection, data exfiltration) before go-live, and were the findings fixed?", "owner": "CISO / Privacy Officer", "iso42001": "Annex A.7; aligns with ISO/IEC 27001, 27701", "nist": "MEASURE 2.7, 2.10", "euaiact": "Art. 15 (accuracy, robustness, cybersecurity)"}, {"id": "09", "area": "Operations", "control": "Continuous monitoring enabled", "description": "Monitor performance, data drift, fairness and system behaviour in production, with alerts that reach a named person.", "evidence": "Monitoring dashboard; defined metrics and thresholds; alert routing; drift and performance reports over time.", "test": "If accuracy dropped 10% after a vendor model update, who would get the alert, and how fast?", "owner": "ML operations / Platform owner", "iso42001": "Cl. 9.1; Annex A.6", "nist": "MANAGE 4.1; MEASURE 3.1", "euaiact": "Art. 72 (post-market monitoring)"}, {"id": "10", "area": "Operations", "control": "Incident response process established", "description": "Define how AI incidents are detected, escalated, contained, remediated and reported, and rehearse it.", "evidence": "AI incident playbook; severity definitions; incident log; at least one tabletop exercise with lessons learned.", "test": "Can you switch the system off or roll it back today, and has anyone practised doing it?", "owner": "CISO / Head of operations", "iso42001": "Cl. 10.2; Annex A.8", "nist": "MANAGE 4.3; GOVERN 4.3", "euaiact": "Art. 73 (reporting of serious incidents)"}, {"id": "11", "area": "Assurance", "control": "Regulatory compliance reviews scheduled", "description": "Track changing laws and standards and run periodic compliance assessments and independent audits.", "evidence": "Regulatory horizon register; compliance assessment schedule; internal audit reports and management responses.", "test": "When did a law affecting your AI last change, and how long did it take you to notice?", "owner": "Compliance / Internal audit", "iso42001": "Cl. 9.2, 9.3", "nist": "GOVERN 1.1", "euaiact": "Art. 43 (conformity assessment), Art. 113 (application dates)"}, {"id": "12", "area": "Foundations", "control": "Generative AI usage rules created", "description": "Set clear rules for safe, responsible and compliant use of generative AI tools and models, including approved tools and data limits.", "evidence": "Generative AI standard; approved-tools list; data classification rules for prompts; output review and labelling requirements.", "test": "Do staff know which tools are approved, and what data they must never paste into them?", "owner": "Chief AI Officer / CISO", "iso42001": "Annex A.9, A.10", "nist": "NIST AI 600-1 (Generative AI Profile)", "euaiact": "Art. 50 (transparency for certain AI systems), Art. 53 (GPAI providers)"}]};
+const KEY = "nxgd-ai-gov-checklist-v1";
+const S = DATA.statuses;
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { state = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+const get = id => state[id] || { s: S[0], n: "" };
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+const areas = [...new Set(DATA.items.map(i => i.area))];
+const fArea = document.getElementById("fArea"), fStatus = document.getElementById("fStatus");
+fArea.innerHTML = '<option value="">All areas</option>' + areas.map(a => `<option>${esc(a)}</option>`).join("");
+fStatus.innerHTML = '<option value="">All statuses</option>' + S.map(s => `<option>${esc(s)}</option>`).join("");
+document.getElementById("note").textContent = DATA.mapping_note;
+
+function render() {
+  const list = document.getElementById("list");
+  const items = DATA.items.filter(i => (!fArea.value || i.area === fArea.value) && (!fStatus.value || get(i.id).s === fStatus.value));
+  list.innerHTML = items.length ? items.map(i => {
+    const st = get(i.id), k = S.indexOf(st.s);
+    return `<article class="card" data-s="${esc(st.s)}">
+      <div class="id">${esc(i.id)}</div>
+      <div>
+        <div class="area">${esc(i.area)}</div>
+        <h3>${esc(i.control)}</h3>
+        <p>${esc(i.description)}</p>
+        <details>
+          <summary>Evidence, test and framework mapping</summary>
+          <dl>
+            <dt>Evidence</dt><dd>${esc(i.evidence)}</dd>
+            <dt>Quick test</dt><dd>${esc(i.test)}</dd>
+            <dt>Suggested owner</dt><dd>${esc(i.owner)}</dd>
+          </dl>
+          <div class="map">
+            <div><b>ISO/IEC 42001</b>${esc(i.iso42001)}</div>
+            <div><b>NIST AI RMF</b>${esc(i.nist)}</div>
+            <div><b>EU AI Act</b>${esc(i.euaiact)}</div>
+          </div>
+          <textarea data-id="${esc(i.id)}" placeholder="Notes, owner, evidence link…">${esc(st.n)}</textarea>
+        </details>
+      </div>
+      <select class="status st-${k}" data-id="${esc(i.id)}" aria-label="Status for ${esc(i.control)}">
+        ${S.map(s => `<option${s === st.s ? " selected" : ""}>${esc(s)}</option>`).join("")}
+      </select>
+    </article>`;
+  }).join("") : '<p class="empty">No controls match these filters.</p>';
+  summary();
+}
+
+function summary() {
+  const counts = S.map(s => DATA.items.filter(i => get(i.id).s === s).length);
+  const inScope = DATA.items.length - counts[4];
+  const pct = inScope ? Math.round(counts[3] / inScope * 100) : 0;
+  document.getElementById("pct").textContent = pct + "%";
+  document.getElementById("arc").style.strokeDashoffset = 326.7 * (1 - pct / 100);
+  document.getElementById("stats").innerHTML = S.map((s, k) => `<span class="chip st-${k}">${counts[k]} ${esc(s)}</span>`).join("");
+}
+
+document.addEventListener("change", e => {
+  if (e.target.matches("select.status")) {
+    const id = e.target.dataset.id; state[id] = { ...get(id), s: e.target.value }; save();
+    e.target.className = "status st-" + S.indexOf(e.target.value);
+    e.target.closest(".card").dataset.s = e.target.value;
+    summary();
+    if (fStatus.value) render();
+  }
+  if (e.target === fArea || e.target === fStatus) render();
+});
+document.addEventListener("input", e => {
+  if (e.target.matches("textarea[data-id]")) { const id = e.target.dataset.id; state[id] = { ...get(id), n: e.target.value }; save(); }
+});
+let open = false;
+document.getElementById("expand").onclick = e => { open = !open; document.querySelectorAll("details").forEach(d => d.open = open); e.target.textContent = open ? "Collapse all" : "Expand all"; };
+document.getElementById("reset").onclick = () => { if (confirm("Clear all statuses and notes saved in this browser?")) { state = {}; save(); render(); } };
+document.getElementById("export").onclick = () => {
+  const q = v => '"' + String(v).replace(/"/g, '""') + '"';
+  const head = ["#", "Area", "Control", "Description", "Evidence", "Quick test", "Suggested owner", "ISO/IEC 42001", "NIST AI RMF", "EU AI Act", "Status", "Notes"];
+  const rows = DATA.items.map(i => [i.id, i.area, i.control, i.description, i.evidence, i.test, i.owner, i.iso42001, i.nist, i.euaiact, get(i.id).s, get(i.id).n]);
+  const csv = [head, ...rows].map(r => r.map(q).join(",")).join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["﻿" + csv], { type: "text/csv" }));
+  a.download = "ai-governance-checklist-progress.csv"; a.click();
+};
+const root = document.documentElement;
+try { const t = localStorage.getItem(KEY + "-theme"); if (t) root.dataset.theme = t; } catch (e) {}
+document.getElementById("theme").onclick = () => {
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  try { localStorage.setItem(KEY + "-theme", root.dataset.theme); } catch (e) {}
+};
+render();
+</script>
+</body>
+</html>
