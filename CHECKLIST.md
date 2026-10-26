@@ -37,7 +37,7 @@ Version 1.1.0 · Updated 2026-10-26 · Published by NexGuide.AI
 
 | ISO/IEC 42001 | NIST AI RMF | EU AI Act | Also maps to |
 |---|---|---|---|
-| Cl. 4.3, 7.5; Annex A.4 | GOVERN 1.6; MAP 1.1 | Art. 6, 49 (high-risk classification and registration) | IEEE 2863-2026 (governing-body oversight of AI); Australia AI6 practice 4 (AI system register) |
+| Cl. 4.3, 7.5; Annex A.4 | GOVERN 1.6; MAP 1.1 | Art. 6, 49 (high-risk classification and registration) | Australia AI6 practice 4 (AI system register) |
 
 ### 02 · Risk classification framework defined
 
@@ -93,7 +93,7 @@ Version 1.1.0 · Updated 2026-10-26 · Published by NexGuide.AI
 
 | ISO/IEC 42001 | NIST AI RMF | EU AI Act | Also maps to |
 |---|---|---|---|
-| Cl. 7.5; Annex A.6, A.7 | MAP 2.1–2.3; MEASURE 2.1 | Art. 11, 12 (technical documentation, record-keeping) | EN 18286:2026 (Art. 17(1)(b)–(e) design, development, testing and technical specifications) |
+| Cl. 7.5; Annex A.6, A.7 | MAP 2.1–2.3; MEASURE 2.1 | Art. 11, 12 (technical documentation, record-keeping) | EN 18286:2026 (Art. 17(1)(e) technical specifications and 17(1)(k) record-keeping) |
 
 ### 06 · Bias and fairness testing implemented
 
@@ -177,7 +177,7 @@ Version 1.1.0 · Updated 2026-10-26 · Published by NexGuide.AI
 
 | ISO/IEC 42001 | NIST AI RMF | EU AI Act | Also maps to |
 |---|---|---|---|
-| Cl. 9.2, 9.3 | GOVERN 1.1 | Art. 43 (conformity assessment), Art. 113 (application dates) | EN 18286:2026 (cited in the OJ on 14 Oct 2026; Art. 17(2)–(4) not covered); Australian Standards for AI (announced Jul 2026; bills expected 2027) |
+| Cl. 9.2, 9.3 | GOVERN 1.1 | Art. 43 (conformity assessment), Art. 113 (application dates) | EN 18286:2026 (cited in the OJ on 14 Oct 2026; Art. 17(2)–(4) not covered); Australian Standards for AI (announced Jul 2026; legislation expected early 2027) |
 
 ### 12 · Generative AI usage rules created
 

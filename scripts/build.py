@@ -11,6 +11,9 @@ Usage: python3 scripts/build.py
 """
 import csv
 import json
+import shutil
+import subprocess
+import tempfile
 from pathlib import Path
 
 from openpyxl import Workbook
@@ -268,7 +271,24 @@ def build_xlsx():
 
     wb.properties.title = DATA["title"]
     wb.properties.creator = DATA["publisher"]
-    wb.save(ROOT / "sheets" / "ai-governance-checklist.xlsx")
+    out = ROOT / "sheets" / "ai-governance-checklist.xlsx"
+    wb.save(out)
+    recalc(out)
+
+
+def recalc(path):
+    """Store calculated values (Dashboard counts) so previews show numbers before Excel recalculates.
+
+    Uses LibreOffice when it is installed; otherwise the workbook still recalculates on open.
+    """
+    soffice = shutil.which("soffice") or shutil.which("libreoffice")
+    if not soffice:
+        print("LibreOffice not found: workbook saved without cached formula values.")
+        return
+    with tempfile.TemporaryDirectory() as tmp:
+        subprocess.run([soffice, "--headless", "--calc", "--convert-to", "xlsx:Calc MS Excel 2007 XML",
+                        "--outdir", tmp, str(path)], check=True, capture_output=True, timeout=180)
+        shutil.copyfile(Path(tmp) / path.name, path)
 
 
 # ---------------------------------------------------------------- HTML

@@ -61,7 +61,7 @@ The ISO/IEC 42001, NIST AI RMF, EU AI Act and *Also maps to* references are indi
 - EU AI Act application dates have shifted under the Digital Omnibus (Regulation (EU) 2026/1744): high-risk obligations apply from 2 Dec 2027 (Annex III) and 2 Aug 2028 (Annex I).
 - **EN 18286:2026** was cited in the Official Journal on 14 Oct 2026 (Implementing Decision (EU) 2026/2274). It gives a presumption of conformity with the Art. 17 quality-management requirements it covers — not Art. 17(2)–(4). ISO/IEC 42001 is not a harmonised standard.
 - **ISO/IEC 27090:2026** and **IEEE 2863-2026** are guidance, not certifiable standards.
-- Australia's **Australian Standards for AI** were announced on 15 Jul 2026 with legislation expected in early 2027; until then, the voluntary Guidance for AI Adoption (AI6) applies.
+- The **Australian Standards for AI** were announced on 15 Jul 2026 with legislation expected in early 2027; until then, the voluntary Guidance for AI Adoption (AI6) applies.
 
 The full, sourced crosswalk is in [ai-governance-compliance-as-code](https://github.com/caiotk/ai-governance-compliance-as-code).
 

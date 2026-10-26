@@ -18,7 +18,7 @@
       "iso42001": "Cl. 4.3, 7.5; Annex A.4",
       "nist": "GOVERN 1.6; MAP 1.1",
       "euaiact": "Art. 6, 49 (high-risk classification and registration)",
-      "more": "IEEE 2863-2026 (governing-body oversight of AI); Australia AI6 practice 4 (AI system register)"
+      "more": "Australia AI6 practice 4 (AI system register)"
     },
     {
       "id": "02",
@@ -70,7 +70,7 @@
       "iso42001": "Cl. 7.5; Annex A.6, A.7",
       "nist": "MAP 2.1–2.3; MEASURE 2.1",
       "euaiact": "Art. 11, 12 (technical documentation, record-keeping)",
-      "more": "EN 18286:2026 (Art. 17(1)(b)–(e) design, development, testing and technical specifications)"
+      "more": "EN 18286:2026 (Art. 17(1)(e) technical specifications and 17(1)(k) record-keeping)"
     },
     {
       "id": "06",
@@ -148,7 +148,7 @@
       "iso42001": "Cl. 9.2, 9.3",
       "nist": "GOVERN 1.1",
       "euaiact": "Art. 43 (conformity assessment), Art. 113 (application dates)",
-      "more": "EN 18286:2026 (cited in the OJ on 14 Oct 2026; Art. 17(2)–(4) not covered); Australian Standards for AI (announced Jul 2026; bills expected 2027)"
+      "more": "EN 18286:2026 (cited in the OJ on 14 Oct 2026; Art. 17(2)–(4) not covered); Australian Standards for AI (announced Jul 2026; legislation expected early 2027)"
     },
     {
       "id": "12",
