@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Governance Checklist</title>
-<meta name="description" content="Twelve controls to build, run and evidence responsible AI at enterprise scale — mapped to ISO/IEC 42001, NIST AI RMF and the EU AI Act.">
+<meta name="description" content="Twelve controls to build, run and evidence responsible AI at enterprise scale — mapped to ISO/IEC 42001, NIST AI RMF and the EU AI Act, plus ISO/IEC 27090, EN 18286, IEEE 2863 and Australia's AI6.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
 <style>
@@ -72,7 +72,7 @@ details[open] summary::before{content:"− "}
 dl{display:grid;grid-template-columns:150px 1fr;gap:6px 14px;margin:10px 0 0;font-size:14px}
 dt{color:var(--muted);font-weight:600}
 dd{margin:0}
-.map{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.map{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
 .map div{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px}
 .map b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:2px}
 textarea{width:100%;margin-top:10px;min-height:56px;font:14px Inter,Arial,sans-serif;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);resize:vertical}
@@ -185,6 +185,7 @@ function render() {
             <div><b>ISO/IEC 42001</b>${esc(i.iso42001)}</div>
             <div><b>NIST AI RMF</b>${esc(i.nist)}</div>
             <div><b>EU AI Act</b>${esc(i.euaiact)}</div>
+            <div><b>Also maps to</b>${esc(i.more)}</div>
           </div>
           <textarea data-id="${esc(i.id)}" placeholder="Notes, owner, evidence link…">${esc(st.n)}</textarea>
         </details>
@@ -224,8 +225,8 @@ document.getElementById("expand").onclick = e => { open = !open; document.queryS
 document.getElementById("reset").onclick = () => { if (confirm("Clear all statuses and notes saved in this browser?")) { state = {}; save(); render(); } };
 document.getElementById("export").onclick = () => {
   const q = v => '"' + String(v).replace(/"/g, '""') + '"';
-  const head = ["#", "Area", "Control", "Description", "Evidence", "Quick test", "Suggested owner", "ISO/IEC 42001", "NIST AI RMF", "EU AI Act", "Status", "Notes"];
-  const rows = DATA.items.map(i => [i.id, i.area, i.control, i.description, i.evidence, i.test, i.owner, i.iso42001, i.nist, i.euaiact, get(i.id).s, get(i.id).n]);
+  const head = ["#", "Area", "Control", "Description", "Evidence", "Quick test", "Suggested owner", "ISO/IEC 42001", "NIST AI RMF", "EU AI Act", "Also maps to", "Status", "Notes"];
+  const rows = DATA.items.map(i => [i.id, i.area, i.control, i.description, i.evidence, i.test, i.owner, i.iso42001, i.nist, i.euaiact, i.more, get(i.id).s, get(i.id).n]);
   const csv = [head, ...rows].map(r => r.map(q).join(",")).join("\r\n");
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob(["﻿" + csv], { type: "text/csv" }));

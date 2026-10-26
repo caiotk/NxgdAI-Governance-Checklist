@@ -1,6 +1,6 @@
 # NexGuide.AI — AI Governance Checklist
 
-Twelve controls to build, run and evidence responsible AI at enterprise scale. Each control comes with the evidence an auditor will ask for, a quick test you can run this week, a suggested owner, and an indicative mapping to **ISO/IEC 42001**, the **NIST AI RMF** and the **EU AI Act**.
+Twelve controls to build, run and evidence responsible AI at enterprise scale. Each control comes with the evidence an auditor will ask for, a quick test you can run this week, a suggested owner, and an indicative mapping to **ISO/IEC 42001**, the **NIST AI RMF** and the **EU AI Act**, plus an *Also maps to* column for **ISO/IEC 27090:2026** (AI security), **EN 18286:2026** (the EU AI Act harmonised quality-management standard), **IEEE 2863-2026** (organisational AI governance) and Australia's **Guidance for AI Adoption (AI6)**.
 
 ## Pick your format
 
@@ -56,7 +56,14 @@ That regenerates `CHECKLIST.md`, `sheets/checklist.csv`, `sheets/ai-governance-c
 
 ## Framework mapping note
 
-The ISO/IEC 42001, NIST AI RMF and EU AI Act references are indicative — they point you to the relevant clause, function or article. Verify against the current official text before relying on them for compliance. EU AI Act application dates have shifted under the Digital Omnibus; check the latest position.
+The ISO/IEC 42001, NIST AI RMF, EU AI Act and *Also maps to* references are indicative — they point you to the relevant clause, function, article or practice. Verify against the current official text before relying on them for compliance.
+
+- EU AI Act application dates have shifted under the Digital Omnibus (Regulation (EU) 2026/1744): high-risk obligations apply from 2 Dec 2027 (Annex III) and 2 Aug 2028 (Annex I).
+- **EN 18286:2026** was cited in the Official Journal on 14 Oct 2026 (Implementing Decision (EU) 2026/2274). It gives a presumption of conformity with the Art. 17 quality-management requirements it covers — not Art. 17(2)–(4). ISO/IEC 42001 is not a harmonised standard.
+- **ISO/IEC 27090:2026** and **IEEE 2863-2026** are guidance, not certifiable standards.
+- Australia's **Australian Standards for AI** were announced on 15 Jul 2026 with legislation expected in early 2027; until then, the voluntary Guidance for AI Adoption (AI6) applies.
+
+The full, sourced crosswalk is in [ai-governance-compliance-as-code](https://github.com/caiotk/ai-governance-compliance-as-code).
 
 ## Licence
 

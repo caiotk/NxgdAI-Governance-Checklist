@@ -61,9 +61,9 @@ def build_md():
             "",
             f"**Suggested owner:** {it['owner']}",
             "",
-            "| ISO/IEC 42001 | NIST AI RMF | EU AI Act |",
-            "|---|---|---|",
-            f"| {it['iso42001']} | {it['nist']} | {it['euaiact']} |",
+            "| ISO/IEC 42001 | NIST AI RMF | EU AI Act | Also maps to |",
+            "|---|---|---|---|",
+            f"| {it['iso42001']} | {it['nist']} | {it['euaiact']} | {it['more']} |",
             "",
         ]
     out += [
@@ -91,8 +91,11 @@ def slug(s):
 
 # ---------------------------------------------------------------- CSV
 CSV_HEADERS = ["#", "Area", "Control", "Description", "Evidence", "Quick test",
-               "Suggested owner", "ISO/IEC 42001", "NIST AI RMF", "EU AI Act",
+               "Suggested owner", "ISO/IEC 42001", "NIST AI RMF", "EU AI Act", "Also maps to",
                "Status", "Assigned to", "Target date", "Evidence link", "Notes"]
+STATUS_COL = CSV_HEADERS.index("Status") + 1          # 1-based column of the Status dropdown
+STATUS_LETTER = get_column_letter(STATUS_COL)
+LAST_LETTER = get_column_letter(len(CSV_HEADERS))
 
 
 def build_csv():
@@ -103,7 +106,7 @@ def build_csv():
         w.writerow(CSV_HEADERS)
         for it in ITEMS:
             w.writerow([it["id"], it["area"], it["control"], it["description"], it["evidence"],
-                        it["test"], it["owner"], it["iso42001"], it["nist"], it["euaiact"],
+                        it["test"], it["owner"], it["iso42001"], it["nist"], it["euaiact"], it["more"],
                         "Not started", "", "", "", ""])
 
 
@@ -142,15 +145,15 @@ def build_xlsx():
     first = hdr_row + 1
     for r, it in enumerate(ITEMS, first):
         vals = [it["id"], it["area"], it["control"], it["description"], it["evidence"], it["test"],
-                it["owner"], it["iso42001"], it["nist"], it["euaiact"], "Not started", "", None, "", ""]
+                it["owner"], it["iso42001"], it["nist"], it["euaiact"], it["more"], "Not started", "", None, "", ""]
         for c, v in enumerate(vals, 1):
             cell = ws.cell(row=r, column=c, value=v)
             cell.font = Font(name=F, size=10, bold=(c == 3), color=(NAVY if c == 3 else "000000"))
             cell.alignment = wrap
             cell.border = border
-            if c >= 11:
+            if c >= STATUS_COL:
                 cell.fill = input_fill
-        ws.cell(row=r, column=13).number_format = "yyyy-mm-dd"
+        ws.cell(row=r, column=STATUS_COL + 2).number_format = "yyyy-mm-dd"
     last = first + len(ITEMS) - 1
 
     # Example row note for the input columns
@@ -165,21 +168,21 @@ def build_xlsx():
     dv = DataValidation(type="list", formula1="=Lists!$A$2:$A$%d" % (len(STATUSES) + 1), allow_blank=True)
     dv.error = "Choose a status from the list."
     ws.add_data_validation(dv)
-    dv.add(f"K{first}:K{last}")
+    dv.add(f"{STATUS_LETTER}{first}:{STATUS_LETTER}{last}")
 
     # Status colouring
     colours = {"Not started": "F2F2F2", "In progress": "FFE699", "Implemented": "BDD7EE",
                "Evidenced": "C6EFCE", "Not applicable": "D9D9D9"}
     for s, col in colours.items():
         ws.conditional_formatting.add(
-            f"K{first}:K{last}",
-            FormulaRule(formula=[f'$K{first}="{s}"'], fill=PatternFill("solid", fgColor=col)))
+            f"{STATUS_LETTER}{first}:{STATUS_LETTER}{last}",
+            FormulaRule(formula=[f'${STATUS_LETTER}{first}="{s}"'], fill=PatternFill("solid", fgColor=col)))
 
-    widths = [5, 14, 26, 44, 44, 40, 22, 20, 20, 26, 15, 18, 13, 28, 30]
+    widths = [5, 14, 26, 44, 44, 40, 22, 20, 20, 26, 32, 15, 18, 13, 28, 30]
     for i, w in enumerate(widths, 1):
         ws.column_dimensions[get_column_letter(i)].width = w
     ws.freeze_panes = ws.cell(row=first, column=4)
-    ws.auto_filter.ref = f"A{hdr_row}:O{last}"
+    ws.auto_filter.ref = f"A{hdr_row}:{LAST_LETTER}{last}"
     ws.print_title_rows = f"{hdr_row}:{hdr_row}"
     ws.page_setup.orientation = "landscape"
     ws.page_setup.fitToWidth = 1
@@ -201,7 +204,7 @@ def build_xlsx():
     db["A1"].font = Font(name=F, size=18, bold=True, color=NAVY)
     db["A2"] = "Calculated live from the Status column on the Checklist sheet."
     db["A2"].font = Font(name=F, size=10, italic=True, color=GREY)
-    rng = f"Checklist!$K${first}:$K${last}"
+    rng = f"Checklist!${STATUS_LETTER}${first}:${STATUS_LETTER}${last}"
     db["A4"], db["B4"] = "Status", "Controls"
     for c in ("A4", "B4"):
         db[c].font = Font(name=F, bold=True, color="FFFFFF")
